@@ -2,13 +2,13 @@ repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.2.0
     hooks:
-    -   id: trailing-whitespace  # убирает лишние пробелы
-    -   id: check-added-large-files  # проверяет тяжелые файлы на изменения
-    -   id: check-yaml  # проверяет синтаксис .yaml файлов
-    -   id: check-case-conflict  # проверяет файлы, которые могут конфликтовать в файловых системах без учета регистра.
-    -   id: check-merge-conflict  # проверяет файлы, содержащие конфликтные строки слияния.
-    -   id: double-quote-string-fixer  # заменяет " на '
-    -   id: end-of-file-fixer  # добавляет пустую строку в конце файла
+    -   id: trailing-whitespace
+    -   id: check-added-large-files
+    -   id: check-yaml
+    -   id: check-case-conflict
+    -   id: check-merge-conflict
+    -   id: double-quote-string-fixer
+    -   id: end-of-file-fixer
 
 - repo: https://github.com/pycqa/isort
   rev: 5.12.0
