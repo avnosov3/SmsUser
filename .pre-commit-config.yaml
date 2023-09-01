@@ -25,7 +25,7 @@ repos:
       name: isort
       exclude: (migrations)
       # args: [--profile, black, --known-local-folder, users, api, backend]
-      args: [--profile, black, --project, users, api, backend]
+      args: [--profile, black, --project, users, api, backend, --known-local-folder, api]
       # args: [--profile, black, -src-path, backend]
 
 - repo: https://github.com/pycqa/flake8
