@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
     'drf_yasg',
     'django_extensions',
@@ -113,3 +114,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom User
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+
+# Rest Framework
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.AllowAny',
+#     ],
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.TokenAuthentication',
+#     ],
+# }
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+
+ADMIN_EMAIL = 'testyandex@yandex.ru'
