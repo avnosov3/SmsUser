@@ -5,7 +5,8 @@ from users import models
 
 @admin.register(models.CustomUser)
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'username',)
+    list_display = ('id', 'email', 'username',)
+    list_display_links = ('email',)
     empty_value_display = '-пусто-'
 
 
