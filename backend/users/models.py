@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-from django.utils import timezone
 
 from users import settings
 
@@ -72,4 +71,4 @@ class OTP(models.Model):
         verbose_name='Код подтверждения',
         max_length=settings.CODE_LENGTH
     )
-    expires_at = models.DateTimeField(default=timezone.now() + timezone.timedelta(minutes=2))
+    expires_at = models.DateTimeField()
