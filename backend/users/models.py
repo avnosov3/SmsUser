@@ -39,11 +39,6 @@ class CustomUser(AbstractUser):
         verbose_name='Электронная почта',
         max_length=settings.MAIN_LENGTH,
     )
-    confirmation_code = models.CharField(
-        verbose_name='Код подтверждения',
-        max_length=settings.MAIN_LENGTH,
-        blank=True,
-    )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
