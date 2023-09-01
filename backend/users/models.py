@@ -66,9 +66,5 @@ class CustomUser(AbstractUser):
 
 class OTP(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Пользователь')
-    code = models.CharField(
-        blank=True,
-        verbose_name='Код подтверждения',
-        max_length=settings.CODE_LENGTH
-    )
+    code = models.CharField(blank=True, verbose_name='Код подтверждения', max_length=settings.CODE_LENGTH)
     expires_at = models.DateTimeField(null=True)

@@ -8,7 +8,6 @@ from rest_framework import mixins, status, viewsets
 from rest_framework.response import Response
 
 from backend.settings import ADMIN_EMAIL
-
 from users.models import OTP, CustomUser
 
 
@@ -67,3 +66,19 @@ class SignUpViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         )
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+
+# class LogInViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+#     serializer_class = serializers.LogInSerializer
+
+#     def create(self, request, *args, **kwargs):
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         email = serializer.validated_data['email']
+#         confirmation_code = serializer.validated_data['code']
+#         user = get_object_or_404(User, username=username)
+#         if user.confirmation_code != confirmation_code:
+#             return Response('Неверный код подтверждения', status=status.HTTP_400_BAD_REQUEST)
+#         refresh = RefreshToken.for_user(user)
+#         token_data = {'token': str(refresh.access_token)}
+#         return Response(token_data, status=status.HTTP_200_OK)

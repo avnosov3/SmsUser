@@ -5,7 +5,6 @@ from users.models import CustomUser
 
 
 class CustomUpdateUserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = CustomUser
         fields = (
@@ -16,7 +15,6 @@ class CustomUpdateUserSerializer(serializers.ModelSerializer):
 
 
 class CustomRetriveListDeleteSerialzer(serializers.ModelSerializer):
-
     class Meta:
         model = CustomUser
         fields = (
@@ -37,7 +35,7 @@ class LogInSerializer(serializers.Serializer):
         required=True,
         max_length=users_settings.MAIN_LENGTH,
     )
-    confirmation_code = serializers.CharField(
+    code = serializers.CharField(
         required=True,
         max_length=users_settings.CODE_LENGTH,
     )
