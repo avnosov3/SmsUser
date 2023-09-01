@@ -71,4 +71,4 @@ class OTP(models.Model):
         verbose_name='Код подтверждения',
         max_length=settings.CODE_LENGTH
     )
-    expires_at = models.DateTimeField()
+    expires_at = models.DateTimeField(null=True)
