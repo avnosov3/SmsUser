@@ -129,8 +129,29 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 # Email
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
-EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+# EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
-ADMIN_EMAIL = 'testyandex@yandex.ru'
+ADMIN_EMAIL = 'nosov1995@gmail.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'nosov1995@gmail.com'
+EMAIL_HOST_PASSWORD = 'ritkvavkfianxced'
+
+# Celery
+
+# CELERY_HOST = os.getenv('CELERY_HOST')
+REDIS_HOST = 'localhost'
+
+# CELERY_BROKER_URL = f'redis://{REDIS_HOST}:6379/0'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:6379/0'
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'

@@ -1,8 +1,9 @@
 import secrets
 
-from api import serializers
+from api import serializers, tasks
 from django.contrib.auth import authenticate
-from django.core.mail import send_mail
+
+# from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -10,9 +11,9 @@ from rest_framework import mixins, status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
-from backend.settings import ADMIN_EMAIL
-
 from users.models import OTP, CustomUser
+
+# from backend.settings import ADMIN_EMAIL
 
 
 class CustomUserViewSet(
@@ -73,13 +74,14 @@ class LogInViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         otp.code = code
         otp.expires_at = timezone.now() + timezone.timedelta(minutes=2)
         otp.save()
-        send_mail(
-            'Вы зарегистрировались на ресурсе.',
-            f'Ваш код-подтверждение: {code}',
-            ADMIN_EMAIL,
-            (email,),
-            fail_silently=False,
-        )
+        # send_mail(
+        #     'Вы зарегистрировались на ресурсе.',
+        #     f'Ваш код-подтверждение: {code}',
+        #     ADMIN_EMAIL,
+        #     (email,),
+        #     fail_silently=False,
+        # )
+        tasks.send_confirmation_code.apply_async(args=[email, code])
         return Response(dict(detail='На электронную почту отправлен код', email=email), status=status.HTTP_200_OK)
 
 
