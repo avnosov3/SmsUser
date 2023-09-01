@@ -25,6 +25,11 @@ class CustomUser(AbstractUser):
         verbose_name='Фамилия',
         max_length=settings.MAIN_LENGTH
     )
+    confirmation_code = models.CharField(
+        blank=True,
+        verbose_name='Код подтверждения',
+        max_length=settings.MAIN_LENGTH
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
