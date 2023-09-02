@@ -7,13 +7,12 @@ from django.contrib.auth import authenticate
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from rest_framework import mixins, status, viewsets
+from djoser.serializers import SetPasswordSerializer
+from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 from users.models import OTP, CustomUser
-
-# from backend.settings import ADMIN_EMAIL
 
 
 class CustomUserViewSet(
@@ -24,18 +23,29 @@ class CustomUserViewSet(
     viewsets.GenericViewSet,
 ):
     queryset = CustomUser.objects.all()
-    # pagination_class = CustomPagination
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_serializer_class(self):
-        # if self.request.method in ['POST']:
-        #     return serializers.CustomUserCreateSerializer
         if self.request.method in ['PUT', 'PATCH']:
             return serializers.CustomUpdateUserSerializer
         return serializers.CustomRetriveListDeleteSerialzer
 
 
+class ChangePasswordViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    # queryset = CustomUser.objects.all()
+    serializer_class = SetPasswordSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def create(self, request, *args, **kwargs):
+        serializer = SetPasswordSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        self.request.user.set_password(serializer.data['new_password'])
+        self.request.user.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class SignUpViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    serializer_class = serializers.SignUpSerializer
+    serializer_class = serializers.EmailPasswordSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -57,7 +67,7 @@ class SignUpViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
 
 class LogInViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    serializer_class = serializers.LogInSerializer
+    serializer_class = serializers.EmailPasswordSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -77,7 +87,7 @@ class LogInViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         # send_mail(
         #     'Вы зарегистрировались на ресурсе.',
         #     f'Ваш код-подтверждение: {code}',
-        #     ADMIN_EMAIL,
+        #     'test@yandex.ru',
         #     (email,),
         #     fail_silently=False,
         # )

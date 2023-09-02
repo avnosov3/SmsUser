@@ -1,7 +1,7 @@
 from django.core.mail import send_mail
 
 from backend.celery import app
-from backend.settings import ADMIN_EMAIL
+from backend.settings import EMAIL_HOST_USER
 
 
 @app.task
@@ -10,7 +10,7 @@ def send_confirmation_code(email, code):
         send_mail(
             'Вы зарегистрировались на ресурсе.',
             f'Ваш код-подтверждение: {code}',
-            ADMIN_EMAIL,
+            EMAIL_HOST_USER,
             [email],
             fail_silently=False,
         )
