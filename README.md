@@ -15,6 +15,8 @@ API-сервис на Django и виртуальное окружение к н�
 [Документация API](https://avnosov3.pythonanywhere.com/redoc/)  
 
 [Админка](https://avnosov3.pythonanywhere.com/admin/)  
+логин - admin@ya.ru
+пароль - admin
 
 ## Техно-стек
 
