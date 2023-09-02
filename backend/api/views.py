@@ -1,7 +1,5 @@
 import secrets
 
-from api import constants, serializers, tasks
-from api.permissions import IsOwnerOrReadOnly
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404
@@ -11,6 +9,8 @@ from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
+from api import constants, serializers, tasks
+from api.permissions import IsOwnerOrReadOnly
 from users.models import OTP, CustomUser
 
 
