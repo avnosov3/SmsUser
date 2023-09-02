@@ -18,7 +18,7 @@ services:
       sh -c "
         poetry run python manage.py collectstatic --no-input &&
         poetry run python manage.py migrate &&
-        poetry run gunicorn network.wsgi --bind 0:8888
+        poetry run gunicorn backend.wsgi --bind 0:8888
       "
     volumes:
       - static_volume:/app/static/
@@ -55,7 +55,7 @@ services:
     #   context: ../
     #   dockerfile: Dockerfile
     image: avnosov/smsuser:v1
-    command: poetry run celery -A network worker --loglevel=info
+    command: poetry run celery -A backend worker --loglevel=info
     depends_on:
       - app
       - redis
@@ -67,7 +67,7 @@ services:
     #   context: ../
     #   dockerfile: Dockerfile
     image: avnosov/smsuser:v1
-    command: poetry run celery -A network flower
+    command: poetry run celery -A backend flower
     ports:
       - "5555:5555"
     depends_on:
