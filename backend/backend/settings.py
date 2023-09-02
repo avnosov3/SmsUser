@@ -131,21 +131,21 @@ REST_FRAMEWORK = {
 
 # Email
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
-EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+# EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-# EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
 
-# EMAIL_PORT = 465
+EMAIL_PORT = 465
 
-# EMAIL_USE_SSL = True
+EMAIL_USE_SSL = True
 
 EMAIL_HOST_USER = 'nosov1995@gmail.com'
 
-# EMAIL_HOST_PASSWORD = 'ritkvavkfianxced'
+EMAIL_HOST_PASSWORD = 'ritkvavkfianxced'
 
 # Celery
 
