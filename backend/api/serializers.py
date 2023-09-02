@@ -25,24 +25,21 @@ class CustomRetriveListDeleteSerialzer(serializers.ModelSerializer):
         )
 
 
-class SignUpSerializer(serializers.Serializer):
+class EmailPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=users_settings.MAIN_LENGTH)
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
 
-class LogInSerializer(serializers.Serializer):
-    email = serializers.CharField(
-        required=True,
-        max_length=users_settings.MAIN_LENGTH,
-    )
-    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+# class LogInSerializer(serializers.Serializer):
+#     email = serializers.CharField(
+#         required=True,
+#         max_length=users_settings.MAIN_LENGTH,
+#     )
+#     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
 
 class OPTSerializer(serializers.Serializer):
-    email = serializers.CharField(
-        required=True,
-        max_length=users_settings.MAIN_LENGTH,
-    )
+    email = serializers.EmailField(required=True, max_length=users_settings.MAIN_LENGTH)
     code = serializers.CharField(
         required=True,
         max_length=users_settings.CODE_LENGTH,
