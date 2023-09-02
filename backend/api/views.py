@@ -1,6 +1,7 @@
 import secrets
 
 from api import serializers, tasks
+from api.permissions import IsOwnerOrReadOnly
 from django.contrib.auth import authenticate
 
 # from django.core.mail import send_mail
@@ -23,7 +24,7 @@ class CustomUserViewSet(
     viewsets.GenericViewSet,
 ):
     queryset = CustomUser.objects.all()
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'PATCH']:
