@@ -118,37 +118,41 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 # Rest Framework
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.AllowAny',
-#     ],
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.TokenAuthentication',
-#     ],
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
 
 # Email
 
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
-# EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
-ADMIN_EMAIL = 'nosov1995@gmail.com'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
+# EMAIL_HOST = 'smtp.gmail.com'
+
+# EMAIL_PORT = 465
+
+# EMAIL_USE_SSL = True
+
 EMAIL_HOST_USER = 'nosov1995@gmail.com'
-EMAIL_HOST_PASSWORD = 'ritkvavkfianxced'
+
+# EMAIL_HOST_PASSWORD = 'ritkvavkfianxced'
 
 # Celery
 
 # CELERY_HOST = os.getenv('CELERY_HOST')
 REDIS_HOST = 'localhost'
 
-# CELERY_BROKER_URL = f'redis://{REDIS_HOST}:6379/0'
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:6379/0'
 CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:6379/0'
 
 CELERY_ACCEPT_CONTENT = ['json']
