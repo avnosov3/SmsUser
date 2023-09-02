@@ -14,7 +14,6 @@ API-сервис на Django и виртуальное окружение к н�
 [Документация](https://avnosov3.pythonanywhere.com/redoc/)
 [Админка](https://avnosov3.pythonanywhere.com/redoc/)
 
-
 ## Техно-стек
 
 * python 3.10
