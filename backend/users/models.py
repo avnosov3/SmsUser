@@ -68,3 +68,10 @@ class OTP(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Пользователь')
     code = models.CharField(blank=True, verbose_name='Код подтверждения', max_length=settings.CODE_LENGTH)
     expires_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return f'{self.user} code {self.code}'
+
+    class Meta:
+        verbose_name = 'OTP'
+        verbose_name_plural = 'OTP'
