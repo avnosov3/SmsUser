@@ -150,6 +150,7 @@ REST_FRAMEWORK = {
 }
 
 # Email
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
@@ -159,7 +160,6 @@ else:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 465
     EMAIL_USE_SSL = True
-    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # Celery
