@@ -30,14 +30,6 @@ class EmailPasswordSerializer(serializers.Serializer):
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
 
-# class LogInSerializer(serializers.Serializer):
-#     email = serializers.CharField(
-#         required=True,
-#         max_length=users_settings.MAIN_LENGTH,
-#     )
-#     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
-
-
 class OPTSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True, max_length=users_settings.MAIN_LENGTH)
     code = serializers.CharField(

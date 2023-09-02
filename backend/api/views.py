@@ -1,10 +1,8 @@
 import secrets
 
-from api import serializers, tasks
+from api import constants, serializers, tasks
 from api.permissions import IsOwnerOrReadOnly
 from django.contrib.auth import authenticate
-
-# from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -33,7 +31,6 @@ class CustomUserViewSet(
 
 
 class ChangePasswordViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    # queryset = CustomUser.objects.all()
     serializer_class = SetPasswordSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -61,10 +58,10 @@ class SignUpViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
             user.save()
         except IntegrityError:
             return Response(
-                'Пользователь с таким password или email уже используется.',
+                constants.USER_EXISTS,
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        return Response(dict(detail='Пользователь успешно создан'), status=status.HTTP_201_CREATED)
+        return Response(dict(detail=constants.USER_CREATED), status=status.HTTP_201_CREATED)
 
 
 class LogInViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -77,7 +74,7 @@ class LogInViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         password = serializer.validated_data['password']
         user = authenticate(request, email=email, password=password)
         if user is None:
-            return Response('Неверный пароль или логин', status=status.HTTP_400_BAD_REQUEST)
+            return Response(constants.WRONG_PASSWORD_OR_LOGIN, status=status.HTTP_400_BAD_REQUEST)
         code = str(secrets.randbelow(1000000)).zfill(6)
         otp, _ = OTP.objects.get_or_create(
             user=user,
@@ -85,15 +82,8 @@ class LogInViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         otp.code = code
         otp.expires_at = timezone.now() + timezone.timedelta(minutes=2)
         otp.save()
-        # send_mail(
-        #     'Вы зарегистрировались на ресурсе.',
-        #     f'Ваш код-подтверждение: {code}',
-        #     'test@yandex.ru',
-        #     (email,),
-        #     fail_silently=False,
-        # )
         tasks.send_confirmation_code.apply_async(args=[email, code])
-        return Response(dict(detail='На электронную почту отправлен код', email=email), status=status.HTTP_200_OK)
+        return Response(dict(detail=constants.CODE_SENT_TO_MAIL, email=email), status=status.HTTP_200_OK)
 
 
 class OPTConfirmationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -107,8 +97,8 @@ class OPTConfirmationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         user = get_object_or_404(CustomUser, email=email)
         otp = get_object_or_404(OTP, user=user)
         if otp.code != code:
-            return Response('Неверный код подтверждения', status=status.HTTP_400_BAD_REQUEST)
+            return Response(constants.WRONG_CODE, status=status.HTTP_400_BAD_REQUEST)
         if otp.expires_at < timezone.now():
-            return Response('Время действия кода вышло. Повторите запрос')
+            return Response(constants.TIME_EXPIRED)
         token, _ = Token.objects.get_or_create(user=user)
         return Response(dict(token=str(token.key)), status=status.HTTP_201_CREATED)
