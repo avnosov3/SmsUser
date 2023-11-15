@@ -98,6 +98,7 @@ docker compose exec app poetry run python manage.py createsuperuser
 </details>
 
 <details><summary>English language</summary>  
+
 RESTful API endpoints for user registration, login, fetching user profile, updating user  
 profile, and deleting the account using Django Rest Framework (DRF).  Integrated Celery for sending OTP to users during login.
 
@@ -134,7 +135,7 @@ docker compose exec app poetry run python manage.py createsuperuser
 ```
 
 Once launched, there will be access to:
-* Documantation (Redoc) http://<ДОМЕН>/redoc/
+* Documentation (Redoc) http://<ДОМЕН>/redoc/
 * Admin-panel django http://<ДОМЕН>/admin/
 * Admin-panel postgres http://<ДОМЕН>/adminer/
 * Flower http://<ДОМЕН>:5555/
@@ -178,7 +179,7 @@ docker compose exec app poetry run python manage.py createsuperuser
 ```
 
 Once launched, there will be access to:
-* [Documantation](http://127.0.0.1/redoc/)
+* [Documentation](http://127.0.0.1/redoc/)
 * [Admin-panel django](http://127.0.0.1/admin/)
 * [Admin-panel postgres](http://127.0.0.1/adminer/)
 * [Flower](http://127.0.0.1:5555/)
